@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Identify the safety of URLs using machine learning">
+    <meta name="keywords" content="phishing url, cyber security, URL detection">
+    <title>URL Security Analyzer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #1a3c4d;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 700px;
+            width: 100%;
+        }
+        .info-box {
+            background-color: #f8f9ff;
+            padding: 15px;
+            border-radius: 5px;
+            color: #3366ff;
+            margin: 20px 0;
+        }
+        .form-control {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+        }
+        .btn {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .btn-primary {
+            background-color: #3366ff;
+            border: none;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+        .result-url {
+            color: #3366ff;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mb-4">URL Security Analyzer</h1>
+    
+    <div class="info-box">
+        Our AI-powered system analyzes URLs to help protect you from potential security threats.
+    </div>
+
+    <form action="/" method="post">
+        <input type="text" class="form-control mb-3" name="url" id="url" 
+               placeholder="Enter website URL to analyze..." required />
+        <button class="btn btn-primary w-100" type="submit">Analyze Security</button>
+    </form>
+
+    <div class="mt-4">
+        <div class="result-url">{{ url }}</div>
+        <h3 id="prediction" class="mt-3"></h3>
+        <button class="btn btn-success w-100 mt-3" id="button1" onclick="window.open('{{ url }}')" 
+                style="display: none;">Visit Website Safely</button>
+        <button class="btn btn-danger w-100 mt-3" id="button2" onclick="window.open('{{ url }}')" 
+                style="display: none;">Visit at Your Own Risk</button>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+    let x = '{{xx}}';
+    let num = x * 100;
+    if (0 <= x && x < 0.50) {
+        num = 100 - num;
+    }
+    let txtx = num.toFixed(0);
+    if (x <= 1 && x >= 0.50) {
+        document.getElementById("prediction").innerHTML = 
+            "✓ This website appears " + txtx + "% safe";
+        document.getElementById("button1").style.display = "block";
+    } else if (0 <= x && x < 0.50) {
+        document.getElementById("prediction").innerHTML = 
+            "⚠ Warning: This website appears " + txtx + "% unsafe";
+        document.getElementById("button2").style.display = "block";
+    }
+</script>
+</body>
+</html>
